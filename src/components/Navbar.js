@@ -1,6 +1,10 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 export const Navbar = () => {
+ const location = useLocation();
+ useEffect(() => {
+  console.log(location.pathname);
+ }, [location])
   return (
     <div><nav className="navbar navbar-expand-lg navbar-light bg-light">
     <Link className="navbar-brand" to="/">Navbar</Link>
@@ -10,11 +14,11 @@ export const Navbar = () => {
   
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mr-auto">
-        <li className="nav-item active">
-          <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+        <li className="nav-item">
+          <Link className={`nav-link ${location.pathname === '/' ? 'active': ''}`} to="/">Home <span className="sr-only">(current)</span></Link>
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/about">About</Link>
+          <Link className={`nav-link ${location.pathname === '/about' ? 'active': ''}`} to="/about">About</Link>
         </li>
         <li className="nav-item dropdown">
           <Link className="nav-link dropdown-toggle" to="/" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
