@@ -5,11 +5,11 @@ export const About = () => {
   const a = useContext(NoteContext)
   useEffect(() => {
     
-    a.update()
+   // a.update()
     
   console.log('update effect called');
   }, [])
   return (
-    <div>About {a.state.name}</div>
+    <div>About</div>
   )
 }
