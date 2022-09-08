@@ -5,14 +5,16 @@ import { NoteItem } from './NoteItem';
 
 export const Home = () => {
   const notes = useContext(NoteContext);
-
+  useEffect(() => {
+    notes.getNotes();
+  }, [])
   return (
     <div>
         <AddNote/>
       <div className="row">
 
         {
-          notes.notesObj.map((note) => {
+          notes.notesObj && notes.notesObj.map((note) => {
             return <NoteItem key={note._id} note={note} />
           })
         }
