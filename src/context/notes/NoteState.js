@@ -58,7 +58,7 @@ export const NoteState = (props) => {
 
     const addNote = async(title, description) => {
       const headers = { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwYjQyYjE3YTE4ZTMwNmFiZTI1ZDg3In0sImlhdCI6MTY2MTY5NjExNX0.DMrEgf4QB_GD0NVPZ_tI5tqy4bnJkJxo8swS8yOmPLA',
-      'Content-Type': 'application/json' }
+       }
       const data = {
         title: title, description: description
       }
@@ -68,28 +68,45 @@ export const NoteState = (props) => {
       ).then((res) => {
         console.log('success', res);
         setNotes(notesObj.concat(
-          {
-              title: title,
-              description: description
-          }
+          res.data
          ))
       }).catch((err)=> {
-        console.log(err.response.statusText);
+        console.log(err);
       })
       //console.log(note);
       
     }
 
     //update note
-    const updateNote = () => {
-        setTimeout(()=>{
-            // let l1 = {
-            //     "name": "vikrant",
-            //     'age': 33
-            // }
-            // setState(l1)
-        }, 1000)
+    const editNote =  async (id, title, description) => {
+      console.log(id);
+      const data = {
+        title: title, description: description
+      }
 
+      const headers = { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwYjQyYjE3YTE4ZTMwNmFiZTI1ZDg3In0sImlhdCI6MTY2MTY5NjExNX0.DMrEgf4QB_GD0NVPZ_tI5tqy4bnJkJxo8swS8yOmPLA' }
+      await axios.put(`${url}notes/updatenote/${id}`,data, {headers}).then((res) => {
+       // const notes = notesObj.filter((note) => note._id!=id)
+        console.log(res.data);
+        console.log(notesObj);
+        let newNotes = JSON.parse(JSON.stringify(notesObj));
+        for(let i = 0; i < newNotes.length; i++)
+        {
+          
+          console.log(newNotes[i]._id +' '+ res.data._id);
+          if(newNotes[i]._id === res.data._id)
+          {
+            console.log('ergeggerg');
+            newNotes[i].title = res.data.title;
+            newNotes[i].description = res.data.description;
+            
+            break;
+          }
+        }
+        console.log(newNotes);
+        setNotes(newNotes);
+      })
+      
     }
 
     // delete note 
@@ -102,7 +119,7 @@ export const NoteState = (props) => {
 
     }
   return (
-    <NoteContext.Provider value={{notesObj, updateNote, addNote, deleteNote, getNotes}}>
+    <NoteContext.Provider value={{notesObj, editNote, addNote, deleteNote, getNotes}}>
         {props.children}
     </NoteContext.Provider>
   )
