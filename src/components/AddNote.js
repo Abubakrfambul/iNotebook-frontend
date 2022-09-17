@@ -7,6 +7,7 @@ export const AddNote = () => {
     const handleClick = (e) => {
         e.preventDefault();
         addNote(note.title, note.description)
+        setNote({title: '', description: ''});
     }
 
     const onChange = (e) => {
@@ -19,13 +20,13 @@ export const AddNote = () => {
 
     <div className="md-form">
         <i className="fa fa-envelope prefix grey-text" style={{float: "left",position: 'initial'}}></i>
-        <input type="text" id="title" name="title" className="form-control" onChange={onChange} />
+        <input type="text" id="title" name="title" value={note.title} className="form-control" onChange={onChange} />
         <label htmlFor="title">Title</label>
     </div>
 
     <div className="md-form">
         <i className="fa fa-envelope prefix grey-text" style={{float: "left",position: 'initial'}}></i>
-        <input type="text" id="description" name="description" className="form-control" onChange={onChange} />
+        <input type="text" id="description" name="description" value={note.description} className="form-control" onChange={onChange} />
         <label htmlFor="description">Description</label>
     </div>
 
