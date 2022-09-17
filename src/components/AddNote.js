@@ -24,7 +24,7 @@ export const AddNote = () => {
         <label htmlFor="title">Title</label>
     </div>
 
-    <div className="md-form">
+    <div className="md-form"
         <i className="fa fa-envelope prefix grey-text" style={{float: "left",position: 'initial'}}></i>
         <input type="text" id="description" name="description" value={note.description} className="form-control" onChange={onChange} />
         <label htmlFor="description">Description</label>
