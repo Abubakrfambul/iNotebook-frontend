@@ -33,6 +33,11 @@ export const Navbar = () => {
             <a className="nav-link"><i className="fa fa-instagram"></i></a>
           </li>
         </ul>
+        {localStorage.getItem('token') ? ''  : <form className='d-flex'>
+          <Link className='btn btn-primary' to="/login" type='submit'>Login</Link>
+          <Link className='btn btn-primary' to="/signup" type='submit'>Signup</Link>
+        </form>}
+        
       </div>
     </nav>
       </header>

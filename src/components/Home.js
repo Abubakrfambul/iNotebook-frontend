@@ -34,9 +34,9 @@ const onChange = (e) => {
 
 
   return (
-    <div>
+   <>
         <AddNote/>
-  <button ref={ref} type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  <button ref={ref} style={{display: 'none'}} type="button" className="btn btn-primary" data-toggle="modal" data-target="#myModal">
     Open modal
   </button>
 
@@ -76,15 +76,18 @@ const onChange = (e) => {
       </div>
     </div>
   </div>
-      <div className="row">
-
-        {
-          notes.notesObj && notes.notesObj.map((note) => {
-            return <NoteItem key={note._id} note={note} updateNote={updateNote}/>
-          })
-        }
-      </div>
+  <div className="row">
+  <h2>You rnotes</h2> 
+  <div className='container'>
+    {notes.notesObj && notes.notesObj.length === 0 && 'No notes found' }
     </div>
+      {
+         notes.notesObj && notes.notesObj.map((note) => {
+           return <NoteItem key={note._id} note={note} updateNote={updateNote}/>
+         })
+       }
+     </div>
+    </>
 
   )
 }
