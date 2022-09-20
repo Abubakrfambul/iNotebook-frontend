@@ -1,10 +1,18 @@
-import React, { useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useEffect, useContext } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import AlertContext from '../context/alerts/AlertContext';
 export const Navbar = () => {
+  const navigate = useNavigate();
  const location = useLocation();
+ const text = useContext(AlertContext)
  useEffect(() => {
   console.log(location.pathname);
  }, [location])
+ const handleLogout = () => {
+  localStorage.removeItem('token');
+  navigate('/login')
+  
+ }
   return (
       <header>
       <nav className="navbar navbar-expand-lg navbar-dark primary-color-dark">
@@ -37,9 +45,13 @@ export const Navbar = () => {
           <Link className='btn btn-primary' to="/login" type='submit'>Login</Link>
           <Link className='btn btn-primary' to="/signup" type='submit'>Signup</Link>
         </form>}
+        {localStorage.getItem('token') && <button className='btn btn-primary' type='button' onClick={handleLogout}><i className='fa fa-sign-out'></i> Log out</button>}
         
       </div>
     </nav>
+    {text.alertStatus && <div className={'alert alert-'+ text.text.type}>
+        <strong></strong> {text.text.message}
+        </div>}
       </header>
 
   )

@@ -1,8 +1,11 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate  } from "react-router-dom";
+import AlertContext from '../context/alerts/AlertContext';
 
 export const Login = () => {
+   const {showAlert} = useContext(AlertContext)
+
     const navigate = useNavigate();
     const url = "http://localhost:5000/api/";
     const [credentials, setCredentials] = useState({email: '', password: ''})
@@ -12,12 +15,12 @@ export const Login = () => {
             await axios.post(
                 `${url}auth/login`, credentials,
             ).then((res) => {
+                showAlert('You have logged in!', 'success')
                 console.log('success', res.data.token);
-              localStorage.setItem('token', res.data.token);
-              navigate('/')
+                localStorage.setItem('token', res.data.token);
+                navigate('/')
             }).catch((err)=> {
-                console.log(err);
-                if(!err.response.data.success) alert(err.response.data.error)
+                if(!err.response.data.success) showAlert('Invalid credentials', 'danger')
             })
     }
 

@@ -7,13 +7,15 @@ import { Navbar } from './components/Navbar';
 import { NoteState } from './context/notes/NoteState';
 import { Login } from './components/Login';
 import { Signup } from './components/Signup';
+import { AlertState } from './context/alerts/AlertState';
 
 function App() {
   return (
     <div className="App">
       <NoteState>
+        <AlertState>
       <BrowserRouter>
-      <Navbar/>
+      <Navbar />
       <div className='container pt-5'>
       
       <Routes>
@@ -25,6 +27,7 @@ function App() {
       </Routes>
       </div>
       </BrowserRouter>
+      </AlertState>
      </NoteState>
     </div>
   );

@@ -10,7 +10,7 @@ export const NoteState = (props) => {
     const config = {
         method: 'get',
         url: url + 'notes/fetchallnotes',
-        headers: { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwYjQyYjE3YTE4ZTMwNmFiZTI1ZDg3In0sImlhdCI6MTY2MTY5NjExNX0.DMrEgf4QB_GD0NVPZ_tI5tqy4bnJkJxo8swS8yOmPLA' }
+        headers: { 'auth-token': localStorage.getItem('token') }
     }
     const res = await axios(config)
     console.log(res.data);
@@ -57,7 +57,7 @@ export const NoteState = (props) => {
     //const [notesObj, setNotes] = useState(notes);
 
     const addNote = async(title, description) => {
-      const headers = { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwYjQyYjE3YTE4ZTMwNmFiZTI1ZDg3In0sImlhdCI6MTY2MTY5NjExNX0.DMrEgf4QB_GD0NVPZ_tI5tqy4bnJkJxo8swS8yOmPLA',
+      const headers = { 'auth-token': localStorage.getItem('token'),
        }
       const data = {
         title: title, description: description
@@ -84,7 +84,7 @@ export const NoteState = (props) => {
         title: title, description: description
       }
 
-      const headers = { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwYjQyYjE3YTE4ZTMwNmFiZTI1ZDg3In0sImlhdCI6MTY2MTY5NjExNX0.DMrEgf4QB_GD0NVPZ_tI5tqy4bnJkJxo8swS8yOmPLA' }
+      const headers = { 'auth-token': localStorage.getItem('token') }
       await axios.put(`${url}notes/updatenote/${id}`,data, {headers}).then((res) => {
        // const notes = notesObj.filter((note) => note._id!=id)
         console.log(res.data);
@@ -111,7 +111,7 @@ export const NoteState = (props) => {
 
     // delete note 
     const deleteNote = async (id) => {
-      const headers = { 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjMwYjQyYjE3YTE4ZTMwNmFiZTI1ZDg3In0sImlhdCI6MTY2MTY5NjExNX0.DMrEgf4QB_GD0NVPZ_tI5tqy4bnJkJxo8swS8yOmPLA' }
+      const headers = { 'auth-token': localStorage.getItem('token') }
       await axios.delete(`${url}notes/deletenote/${id}`, {headers}).then(() => {
         const notes = notesObj.filter((note) => note._id!=id)
         setNotes(notes);
